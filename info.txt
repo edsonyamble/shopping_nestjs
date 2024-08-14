@@ -1,0 +1,35 @@
+
+creer controlleur nest g controller [name] --no-spec
+creer service  nest g service [name]  --no-spec
+creere module  nest g module [name] --no-spec
+creer module servuce controller nest g resource  [name]  --no-spec
+
+стек по бэкенд 
+Nest.js, PostgreSQL, Prisma, TypeScript юкасса платежная система 
+стек фронтенд 
+next js фреймворк реакт с подержкой серверный рендеринга 
+Shadcn ui библиотека компоненты для создание красивый интерфейс
+Tailwind фреймворк css 
+Redux toolkit работать с глобалный состояние в реакт приложение 
+tenstack query библиотека для работы с кеширование для реакт приложение 
+ Next.js, Shadcn UI, Tailwind, Redux Toolkit, Nest.js, PostgreSQL, Prisma, TypeScript
+
+
+nest 
+npm install @nestjs/config class-validator class-transformer @nestjs/jwt @nestjs/passport passport passport-jwt passport-google-oauth20 passport-yandex cookie-parser argon2 dayjs fs-extra @nestjs/serve-static app-root-path @prisma/client @a2seven/yoo-checkout 
+
+типизация некоторые 
+npm install -D @types/multer @types/fs-extra @types/passport-jwt @types/passport-google-oauth20 @types/cookie-parser
+
+npm install 
+@nestjs/config work whith env 
+ class-validator class-transformer  validation 
+ @nestjs/jwt @nestjs/passport passport passport-jwt  login 
+ passport-google-oauth20 login whith google 
+  passport-yandex login whith yandex 
+  cookie-parser  cookie
+  argon2 cache password 
+  dayjs work whith date
+   fs-extra @nestjs/serve-static app-root-path  work whith files 
+   @prisma/client  work whith prisma 
+   @a2seven/yoo-checkout  youkassa 
