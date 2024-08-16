@@ -6,6 +6,7 @@ import { UserService } from "src/user/user.service";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy){
+    //добавить токен в заголовок
     constructor(private configService: ConfigService,private userService: UserService){ 
         super({
                         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -13,6 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy){
                         secretOrKey: configService.get('JWT_SECRET'),
     })
     }
+    //получить юзера
     async validate({id}: {id: string}){
         return this.userService.getById(id)}
 }

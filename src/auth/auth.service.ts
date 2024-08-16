@@ -22,13 +22,13 @@ export class AuthService {
     private prisma: PrismaService,
     private configService: ConfigService,
   ) {}
-
+//логин
   async login(dto: AuthDto) {
     const user = await this.validateUser(dto);
     const tokens = this.issueTokens(user.id);
     return { user, ...tokens };
   }
-
+//регистрация
   async register(dto: AuthDto) {
     const olduser = await this.userService.getByEmail(dto.email);
     if (olduser) throw new BadRequestException('пользователь существует');
@@ -37,6 +37,7 @@ export class AuthService {
     return { user, ...tokens };
   }
 
+  //получить новый токен
   async getNewtokens(refreshToken: string) {
     const result = await this.jwtService.verifyAsync(refreshToken);
     if (!result) throw new UnauthorizedException('неверный токен');
@@ -44,20 +45,20 @@ export class AuthService {
     const tokens = this.issueTokens(user.id);
     return { user, ...tokens };
   }
-
+//генерация токенов
   issueTokens(userId: string) {
     const data = { id: userId };
     const accessToken = this.jwtService.sign(data, { expiresIn: '1h' });
     const refreshToken = this.jwtService.sign(data, { expiresIn: '7d' });
     return { accessToken, refreshToken };
   }
-
+//валидация юзера проверка по email
   private async validateUser(dto: AuthDto) {
     const user = await this.userService.getByEmail(dto.email);
     if (!user) throw new NotFoundException('пользователь не найден');
     return user;
   }
-  
+  //валидация OAuth yandex google
   async validateOAuthLogin(req: any) {
     let user = await this.userService.getByEmail(req.user.email);
     if (!user) {
@@ -73,7 +74,7 @@ export class AuthService {
     const tokens = this.issueTokens(user.id);
     return { user, ...tokens };
   }
-
+//добавление токена в куки
   addREfreshTokenToResponse(res: Response, refreshToken: string) {
     const expireIn = new Date();
     expireIn.setDate(expireIn.getDate() + this.EXPIRE_DAY_REFRESH_TOKEN);
@@ -85,7 +86,7 @@ export class AuthService {
       sameSite: 'none',
     });
   }
-
+//удаление токена из куки
   removeREfreshTokenTFromResponse(res: Response) {
     res.cookie(this.REFRESH_TOKEN_NAME, {
       domain: this.configService.get('SERVER_DOMAIN'),

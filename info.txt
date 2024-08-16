@@ -33,3 +33,24 @@ npm install
    fs-extra @nestjs/serve-static app-root-path  work whith files 
    @prisma/client  work whith prisma 
    @a2seven/yoo-checkout  youkassa 
+
+
+ 1) prisma init database
+  .env change данных о подключение 
+ shema prisma model create 
+ npx prisma db push 
+ npx prisma generate 
+prisma.servise.ts file in src чтобы призма хорошо работал 
+
+2)
+ сушность логин (auth and user )
+ nest generate resource name --no-spec 
+ 3)как будем исползовать jwt on cree folder config/jwt.config.ts
+ 4)folder strategie method login with google yandex 
+ 5)#oauth.yandex.ru платформ веб сервисы
+#url hostname http://localhost:5000   url redirect http://localhost:5000/auth/yandex/callback
+# console.cloud.google.com/welcome?project-ecommerce-429008
+#creer project    ensuite menu api service ecran oauth 
+#user type external  create  enregistre con tinuer enregistrer continuer  revenir au tableau de bord 
+#identifiantl create id client auth typoe apllication application web  url javascript http://localhost:5000   url redirect http://localhost:5000/auth/google/#callback  create
+

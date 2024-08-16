@@ -6,3 +6,4 @@ export const getJwtConfig = async (
 ): Promise<JwtModuleOptions> => ({
   secret: configService.get('JWT_SECRET'),
 });
+//это асинхрон функция которая возвращает промис который возвращает объект с настройками для jwt и чрез secret мы забираем через configservice  JWT_SECRET собираем из env file 
