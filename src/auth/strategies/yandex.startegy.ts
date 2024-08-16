@@ -12,7 +12,10 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
             callbackURL: configService.get('SERVER_URL') + '/auth/yandex/callback',
         })
     }
-    async validate( _accessToken: string, _refreshToken: string, profile: Profile, done: any) {
+
+
+    // validate acces token  промис чтобы он не будет возрашаться но можно убрать 
+    async validate(_accessToken: string, _refreshToken: string, profile: Profile, done: any): Promise<any> {
         const { username, emails, photos } = profile
         const user = {
             email: emails[0].value,
