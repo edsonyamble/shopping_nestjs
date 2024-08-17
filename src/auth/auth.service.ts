@@ -68,7 +68,7 @@ export class AuthService {
           name: req.user.name,
           picture: req.user.picture,
         },
-        include: { stores: true, favorite: true, order: true },
+        include: { stores: true, favorites: true, orders: true },
       });
     }
     const tokens = this.issueTokens(user.id);

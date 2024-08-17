@@ -8,6 +8,7 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 @Controller('stores')
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
+  
 
   //получение магазина по id
   @Auth()

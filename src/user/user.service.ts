@@ -13,7 +13,7 @@ export class UserService {
       where: {
         id,
       },
-      include: { stores: true, favorite: true, order: true },
+      include: { stores: true, favorites: true, orders: true },
     });
     return user;
   }
@@ -23,21 +23,21 @@ export class UserService {
       where: {
         email,
       },
-      include: { stores: true, favorite: true, order: true },
+      include: { stores: true, favorites: true, orders: true },
     });
     return user;
   }
   //метод на даьавление  в избраное
   async toogleFavorite(userId: string, productId: string) {
     const user = await this.getById(userId); //получить юзера
-    const isExists = user.favorite.some((product) => product.id === productId); //проверка на существование
+    const isExists = user.favorites.some((product) => product.id === productId); //проверка на существование
     //вызов метода на добавление в избраное
     await this.prisma.user.update({
       where: {
         id: userId,
       },
       data: {
-        favorite: {
+        favorites: {
           [isExists ? 'disconnect' : 'connect']: {
             id: productId,
           },
