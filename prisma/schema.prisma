@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,178 +6,164 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model User {
-  id String @id @default(cuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updateAt DateTime @updatedAt @map("update_at")
 
-  email String @unique 
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  email    String  @unique
   password String?
-  name String @default("не Указанно")
-  picture String @default("/uploads/no-user-images.png")
+
+  name    String @default("Не указано")
+  picture String @default("/uploads/no-user-image.png")
 
   stores Store[]
 
-  favorite Product[]
-
-  review Review[]
-
-  order Order[]
+  favorites Product[]
+  reviews   Review[]
+  orders    Order[]
 
   @@map("user")
 }
 
 model Store {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
-  updateAt DateTime @updatedAt @map("update_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  title String 
+  title       String
   description String?
 
-  product Product[]
-
-  category Category[]
-
-  review Review[]
-
-  color Color[]
-
-  orderItem OrderItem[]
-
-  user User? @relation(fields: [userId],references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
   userId String? @map("user_id")
 
+  products   Product[]
+  categories Category[]
+  colors     Color[]
+  reviews    Review[]
+  orderItems OrderItem[]
+
   @@map("store")
-  
 }
 
 model Product {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
-  updateAt DateTime @updatedAt @map("update_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  title String 
-  description String?
-  price Int
-  images String[]
+  title       String
+  description String
+  price       Int
+  images      String[]
 
-  review Review[]
+  reviews    Review[]
+  orderItems OrderItem[]
 
-  orderItem OrderItem[]
-
-  store Store? @relation(fields: [storeId],references: [id])
+  store   Store?  @relation(fields: [storeId], references: [id])
   storeId String? @map("store_id")
 
-  category Category? @relation(fields: [categoryId],references: [id])
-  categoryId String? @map("category_id")//у продукт одна категори 
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?   @map("category_id")
 
-  color Color? @relation(fields: [colorId],references: [id])
+  color   Color?  @relation(fields: [colorId], references: [id])
   colorId String? @map("color_id")
 
-  user User? @relation(fields: [userId],references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
   userId String? @map("user_id")
 
   @@map("product")
-  
-  
 }
 
 model Category {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
-  updateAt DateTime @updatedAt @map("update_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  title String 
+  title       String
   description String
-  price Int
 
-  product Product[]//у категории несколко продукт 
+  products Product[]
 
-  store Store? @relation(fields: [storeId],references: [id])
+  store   Store?  @relation(fields: [storeId], references: [id])
   storeId String? @map("store_id")
 
   @@map("category")
 }
 
 model Color {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
-  updateAt DateTime @updatedAt @map("update_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  name String 
+  name  String
   value String
 
-  product Product[]//у категории несколко продукт 
+  products Product[]
 
-  store Store? @relation(fields: [storeId],references: [id])
+  store   Store?  @relation(fields: [storeId], references: [id])
   storeId String? @map("store_id")
 
   @@map("color")
 }
 
 model Review {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
-  updateAt DateTime @updatedAt @map("update_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  text String 
-  raiting Int
+  text   String
+  rating Int
 
-  user User? @relation(fields: [userId],references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
   userId String? @map("user_id")
 
-  product Product? @relation(fields: [productId],references: [id])
-  productId String? @map("product_id")
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?  @map("product_id")
 
-  store Store? @relation(fields: [storeId],references: [id])
+  store   Store?  @relation(fields: [storeId], references: [id])
   storeId String? @map("store_id")
 
   @@map("review")
 }
 
 model Order {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
-  updateAt DateTime @updatedAt @map("update_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   status EnumOrderStatus @default(PENDING)
 
   items OrderItem[]
-
   total Int
 
-  user User? @relation(fields: [userId],references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
   userId String? @map("user_id")
 
   @@map("order")
 }
 
 model OrderItem {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
-  updateAt DateTime @updatedAt @map("update_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   quantity Int
-  price Int 
+  price    Int
 
-  store Store? @relation(fields: [storeId],references: [id])
-  storeId String? @map("store_id")
-
-  order Order? @relation(fields: [orderId],references: [id])
+  order   Order?  @relation(fields: [orderId], references: [id])
   orderId String? @map("order_id")
 
-  product Product? @relation(fields: [productId],references: [id])
-  productId String? @map("product_id")
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?  @map("product_id")
 
+  store   Store?  @relation(fields: [storeId], references: [id])
+  storeId String? @map("store_id")
 
-
-  @@map("orderitem")
+  @@map("order_item")
 }
 
-
-
-enum EnumOrderStatus{
+enum EnumOrderStatus {
   PENDING
   PAYED
 }

@@ -11,9 +11,10 @@ import { StoreModule } from './store/store.module';
 import { OrderModule } from './order/order.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { ProductModule } from './product/product.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, UserModule, ColorModule, CategoryModule, FileModule, StoreModule, OrderModule, StatisticsModule, ProductModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, UserModule, ColorModule, CategoryModule, FileModule, StoreModule, OrderModule, StatisticsModule, ProductModule, ReviewModule],
   controllers: [AppController],
   providers: [AppService],
 })
